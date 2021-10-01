@@ -9,7 +9,7 @@ set -eu
 # move hidden files too, just in case
 shopt -s dotglob
 
-STACK=${STACK:-heroku-18} # Anvil has none
+STACK=heroku-18 # Anvil has none
 build_dir=$1
 cache_dir=$2/php
 mkdir -p "$cache_dir"
@@ -220,7 +220,6 @@ ln -s $build_dir/.heroku/php-min /app/.heroku/php-min
 
 curl_retry_on_18 --fail --silent --location -o $build_dir/.heroku/php-min.tar.gz "${s3_url}php-min-7.4.24.tar.gz" || {
 	mcount "failures.bootstrap.download.php-min"
-	echo "${s3_url}php-min-7.4.24.tar.gz"
 	error <<-EOF
 		Failed to download minimal PHP for bootstrapping!
 		
